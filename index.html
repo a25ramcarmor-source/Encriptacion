@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Firma digital RSA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Firma digital RSA</h1>
+
+       
+        <div class="contingu">
+
+            <div class="misclaves">
+
+                <h2>Mis claves</h2>
+
+                <label for="clauPublica">Clave pública propia:</label>
+                <textarea id="clauPublica" rows="6" cols="60"></textarea>
+
+                <label for="clauPrivada">Clave privada propia:</label>
+                <textarea id="clauPrivada" rows="6" cols="60"></textarea>
+
+                <button id="generar">Generar claves</button>
+
+            </div>
+
+            <div class="remota">
+
+                <h2>Clave pública remota</h2>
+
+                <textarea id="clauRemota" rows="6" cols="60"
+                    placeholder="Pega aquí la clave pública del otro navegador"></textarea>
+
+                <h2>Mensaje</h2>
+
+                <textarea id="sms" rows="6" cols="60"
+                    placeholder="Escribe tu mensaje aquí"></textarea>
+
+                <button id="firmar">Firmar mensaje</button>
+
+            </div>
+
+        </div>
+
+
+    
+        <div class="contingu">
+
+            <div class="cifrado">
+
+                <h2>Mensaje firmado (JSON)</h2>
+
+                <textarea id="msn_json" rows="6" cols="60"
+                    placeholder="Aquí aparecerá el JSON firmado"></textarea>
+
+                <button id="cifrar">Cifrar mensaje</button>
+
+                <h2>Mensaje cifrado</h2>
+
+                <textarea id="msn_cifrat" rows="6" cols="60"
+                    placeholder="Aquí aparecerá el mensaje cifrado"></textarea>
+
+                <button id="enviar">Enviar</button>
+
+            </div>
+
+
+        
+            <div class="descifrado">
+
+                <h2>Mensaje recibido</h2>
+
+                <textarea id="msn_rebut" rows="6" cols="60"
+                    placeholder="Pega aquí el mensaje cifrado recibido"></textarea>
+
+                <button id="descifrar">Descifrar mensaje</button>
+
+                <h2>Mensaje descifrado (JSON)</h2>
+
+                <textarea id="smsDescifrado" rows="6" cols="60"
+                    placeholder="Aquí aparecerá el JSON descifrado"></textarea>
+
+                <button id="verificar">Verificar firma</button>
+
+            </div>
+
+        </div>
+
+
+        
+        <p id="resultado"></p>
+
+    </div>
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
+
+   
+    <script src="funcions.js"></script>
+
+</body>
+</html>
