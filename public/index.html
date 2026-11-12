@@ -9,11 +9,31 @@
 
 <body>
 
+
+    <div class="pantalla-nom">
+        <div class="targeta-nom">
+            <h1>Benvingut</h1>
+            <p>Introdueix el teu nom per començar</p>
+
+            <input id="nom" placeholder="Escribe tu nombre..." maxlength="20">
+
+            <button id="guardarnom">
+                Entrar
+            </button>
+        </div>
+    </div>
+
+     <div id="usuaris">
+
+        </div>
+
+
+
     <div class="container">
 
         <h1>Firma digital RSA</h1>
 
-       
+
         <div class="contingu">
 
             <div class="misclaves">
@@ -39,8 +59,7 @@
 
                 <h2>Mensaje</h2>
 
-                <textarea id="sms" rows="6" cols="60"
-                    placeholder="Escribe tu mensaje aquí"></textarea>
+                <textarea id="sms" rows="6" cols="60" placeholder="Escribe tu mensaje aquí"></textarea><br>
 
                 <button id="firmar">Firmar mensaje</button>
 
@@ -49,29 +68,27 @@
         </div>
 
 
-    
+
         <div class="contingu">
 
             <div class="cifrado">
 
                 <h2>Mensaje firmado (JSON)</h2>
 
-                <textarea id="msn_json" rows="6" cols="60"
-                    placeholder="Aquí aparecerá el JSON firmado"></textarea>
+                <textarea id="msn_json" rows="6" cols="60" placeholder="Aquí aparecerá el JSON firmado"></textarea>
 
                 <button id="cifrar">Cifrar mensaje</button>
 
                 <h2>Mensaje cifrado</h2>
 
-                <textarea id="msn_cifrat" rows="6" cols="60"
-                    placeholder="Aquí aparecerá el mensaje cifrado"></textarea>
+                <textarea id="msn_cifrat" rows="6" cols="60" placeholder="Aquí aparecerá el mensaje cifrado"></textarea>
 
                 <button id="enviar">Enviar</button>
 
             </div>
 
 
-        
+
             <div class="descifrado">
 
                 <h2>Mensaje recibido</h2>
@@ -93,18 +110,18 @@
         </div>
 
 
-        
+
         <p id="resultado"></p>
 
     </div>
 
 
-    
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/aes.js"></script>
+    <script src="/socket.io/socket.io.js"></script>f
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
-
-   
     <script src="funcions.js"></script>
 
 </body>
+
 </html>
