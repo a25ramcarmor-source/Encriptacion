@@ -1,28 +1,53 @@
 let contingut = document.querySelector('.container');
+const remota = document.querySelector('.remota');
+const cifrado = document.querySelector('.cifrado');
+const descifrado = document.querySelector('.descifrado');
+const clauRemota = document.getElementById('clauRemota');
+const firmar = document.getElementById('firmar');
+const pantalla_signar = document.getElementById('Cont_cifrar');
+
+let publicKeySeleccionada = '';
+let username = '';
 
 contingut.style.display = 'none';
 
-addEventListener('click', (e)=>{
-    if(e.target.id == "generar"){
+
+addEventListener('click', (e) => {
+
+    if (e.target.id == "generar") {
         generarClaves();
     }
-    if(e.target.id == "firmar"){
+
+    if (e.target.id == "firmar") {
         firmarMensaje();
     }
-    if(e.target.id == "verificar"){
+
+    if (e.target.id == "Cont_cifrar") {
+        document.getElementById('msn_json').value = publicKeySeleccionada;
+    }
+
+    if (e.target.id == "verificar") {
         verificarFirma();
     }
-    if(e.target.id == "cifrar"){
+
+    if (e.target.id == "cifrar") {
         cifrarMensaje();
     }
-    if(e.target.id == "descifrar"){
+
+    if (e.target.id == "descifrar") {
         descifrarMensaje();
     }
+
+    if (e.target.id == "enviar") {
+        enviarMensajecifrado();
+    }
+
 });
+
 
 document.getElementById('guardarnom').addEventListener('click', () => {
 
-    let username = document.getElementById('nom').value;
+    username = document.getElementById('nom').value;
 
     while (!username || username.trim() === '' || username.trim().length > 20) {
 
@@ -35,7 +60,13 @@ document.getElementById('guardarnom').addEventListener('click', () => {
 
     console.log(username);
 
+    const pantallaNom = document.querySelector('.pantalla-nom');
+
+    pantallaNom.style.display = 'none';
+    contingut.style.display = 'block';
+
 });
+
 
 const socket = io({
     auth: {
@@ -44,9 +75,45 @@ const socket = io({
 });
 
 
+function crearBoto(datos) {
 
+    const contenedor = document.getElementById('llistaUsuaris');
 
+    let boto = Array.from(contenedor.children).find(
+        child => child.textContent === datos.nom &&
+        child.classList.contains('botoUsuaris')
+    );
 
+    if (boto) {
+
+        boto.onclick = () => {
+
+            clauRemota.value = datos.publicKey;
+            publicKeySeleccionada = datos.publicKey;
+
+            console.log('PublicKey seleccionada:', publicKeySeleccionada);
+
+        };
+
+        return;
+    }
+
+    boto = document.createElement('button');
+    boto.className = 'botoUsuaris';
+    boto.textContent = datos.nom;
+
+    boto.addEventListener('click', () => {
+
+        clauRemota.value = datos.publicKey;
+        publicKeySeleccionada = datos.publicKey;
+
+        console.log('PublicKey seleccionada:', publicKeySeleccionada);
+
+    });
+
+    document.getElementById('llistaUsuaris').appendChild(boto);
+
+}
 
 
 
@@ -65,7 +132,18 @@ function generarClaves() {
     document.getElementById("clauPublica").value = publicKey;
     document.getElementById("clauPrivada").value = privateKey;
 
+    socket.emit('clave', {
+        nom: username,
+        publicKey: publicKey
+    });
+
 }
+
+
+socket.on('clave', (datos) => {
+    crearBoto(datos);
+});
+
 
 
 // 2. FIRMAR MENSAJE
@@ -105,6 +183,10 @@ function firmarMensaje() {
         JSON.stringify(objeto, null, 4);
 
 }
+
+
+
+// 3. CIFRAR MENSAJE
 function cifrarMensaje() {
 
     // Recuperamos el JSON firmado
@@ -161,7 +243,74 @@ function cifrarMensaje() {
     }
 }
 
-// 4. DESCIFRAR MENSAJE
+
+
+// 4. ENVIAR MENSAJE CIFRADO
+function enviarMensajecifrado() {
+
+    const mensajeCifrado = document.getElementById("msn_cifrat").value;
+
+    if (!mensajeCifrado) {
+        alert("Primero debes cifrar el mensaje antes de enviarlo.");
+        return;
+    }
+
+    socket.emit('mensaje_cifrado', {
+        username: username,
+        mensaje: mensajeCifrado
+    });
+
+    console.log("Mensaje cifrado enviado por:", username);
+
+}
+
+
+
+// PINTAR MENSAJES CIFRADOS RECIBIDOS
+socket.on('mensaje_cifrado', (datos) => {
+
+    const contenedor = document.getElementById('msn_rebuts');
+    const textareaDestino = document.getElementById('msn_rebut');
+
+    // Buscamos si ya existe un botón de este usuario
+    let boto = Array.from(contenedor.children).find(
+        child => child.textContent === datos.username &&
+        child.classList.contains('botoMissatge')
+    );
+
+    if (boto) {
+
+        boto.onclick = () => {
+
+            textareaDestino.value = datos.mensaje;
+
+            console.log('Mensaje cifrado cargado de:', datos.username);
+
+        };
+
+        return;
+    }
+
+    // Creamos un botón nuevo
+    boto = document.createElement('button');
+    boto.className = 'botoMissatge';
+    boto.textContent = datos.username;
+
+    boto.onclick = () => {
+
+        textareaDestino.value = datos.mensaje;
+
+        console.log('Mensaje cifrado cargado de:', datos.username);
+
+    };
+
+    contenedor.appendChild(boto);
+
+});
+
+
+
+// 5. DESCIFRAR MENSAJE
 function descifrarMensaje() {
 
     // Recuperamos el mensaje cifrado
@@ -216,8 +365,12 @@ function descifrarMensaje() {
             "Error al descifrar el mensaje";
 
     }
+
 }
 
+
+
+// 6. VERIFICAR FIRMA
 function verificarFirma() {
 
     // Recuperamos el JSON del textarea
@@ -243,11 +396,15 @@ function verificarFirma() {
         );
 
         if (correcto) {
+
             document.getElementById("resultado").textContent =
                 "¡Firma correcta! El mensaje no ha sido modificado.";
+
         } else {
+
             document.getElementById("resultado").textContent =
                 "Firma incorrecta. El mensaje no pertenece a esta clave pública o ha sido modificado.";
+
         }
 
     } catch (error) {

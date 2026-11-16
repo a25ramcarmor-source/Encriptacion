@@ -1,9 +1,18 @@
+
+/* ESTILO GENERAL */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: #f1f5f9;
+    color: #1e293b;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+/* PANTALLA DE NOMBRE */
 .pantalla-nom {
     min-height: 100vh;
     display: flex;
@@ -14,56 +23,264 @@ body {
 
 .targeta-nom {
     background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    padding: 35px;
+    width: 380px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
     text-align: center;
 }
 
+.targeta-nom h1 {
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.targeta-nom p {
+    color: #64748b;
+}
+
 .targeta-nom input {
+    width: 100%;
     padding: 12px;
     border: 2px solid #cbd5e1;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
     margin: 15px 0;
+    outline: none;
+    transition: 0.2s;
 }
 
-.targeta-nom button {
-    padding: 12px 25px;
+.targeta-nom input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+    max-width: 1600px;
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+}
+
+.container > h1 {
+    color: #1e3a8a;
+    font-size: 32px;
+    margin-bottom: 35px;
+}
+
+/* DISTRIBUCIÓN */
+.contingu {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* TARJETAS PRINCIPALES */
+.misclaves,
+.remota,
+.cifrado,
+.descifrado {
+    background-color: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+}
+
+.misclaves h2,
+.remota h2,
+.cifrado h2,
+.descifrado h2 {
+    color: #1e40af;
+    font-size: 19px;
+    margin-top: 5px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+/* LABELS */
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    color: #475569;
+    margin: 12px 0 7px;
+}
+
+/* TEXTAREAS */
+textarea {
+    display: block;
+    width: 100%;
+    resize: vertical;
+    min-height: 110px;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    color: #334155;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    outline: none;
+    transition: all 0.2s ease;
+    margin-bottom: 15px;
+}
+
+textarea:focus {
+    border-color: #3b82f6;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* BOTONES */
+button {
+    padding: 11px 18px;
     background-color: #2563eb;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 14px;
     font-weight: bold;
+    transition: all 0.2s ease;
+    margin: 5px 3px;
 }
 
-.targeta-nom button:hover {
+button:hover {
     background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
 }
 
-
-.container {
-    text-align: center;
+button:active {
+    transform: scale(0.97);
 }
 
-.contingu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 70px;
-}
-
-.misclaves {
-    display: flex;
-    flex-direction: column;
-}
-
+/* BOTÓN GENERAR CLAVES */
 #generar {
     width: fit-content;
+    display: block;
+    margin: 15px auto 0;
 }
 
-.misclaves #generar {
-    position: relative;
-    left: 40%;
+/* LISTA DE USUARIOS */
+#llistaUsuaris {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 150px;
+    padding: 15px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    align-self: flex-start;
+}
+
+.botoUsuaris {
+    background-color: #252b3b;
+    color: white;
+    border: 1px solid #3d4961;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.botoUsuaris:hover {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+/* MENSAJES RECIBIDOS */
+#msn_rebuts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 150px;
+    padding: 15px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    align-self: flex-start;
+}
+
+.botoMissatge {
+    padding: 10px 14px;
+    background-color: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    color: #1e293b;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.botoMissatge:hover {
+    background-color: #dbeafe;
+    border-color: #60a5fa;
+}
+
+/* RESULTADO */
+#resultado {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #1e40af;
+    background-color: white;
+}
+
+/* ADAPTACIÓN A MÓVILES */
+@media (max-width: 1100px) {
+    .contingu {
+        flex-wrap: wrap;
+    }
+
+    .misclaves,
+    .remota,
+    .cifrado,
+    .descifrado {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 650px) {
+    .container {
+        padding: 15px;
+    }
+
+    .contingu {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .misclaves,
+    .remota,
+    .cifrado,
+    .descifrado {
+        width: 100%;
+    }
+
+    .targeta-nom {
+        width: 90%;
+        padding: 25px;
+    }
+
+    button {
+        max-width: 100%;
+    }
 }

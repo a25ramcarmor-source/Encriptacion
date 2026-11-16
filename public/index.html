@@ -10,114 +10,119 @@
 <body>
 
 
-    <div class="pantalla-nom">
-        <div class="targeta-nom">
-            <h1>Benvingut</h1>
-            <p>Introdueix el teu nom per començar</p>
+   
+<div class="pantalla-nom">
+    <div class="targeta-nom">
+        <h1>Benvingut</h1>
+        <p>Introdueix el teu nom per començar</p>
 
-            <input id="nom" placeholder="Escribe tu nombre..." maxlength="20">
+        <input id="nom" placeholder="Escriu el teu nom..." maxlength="20">
 
-            <button id="guardarnom">
-                Entrar
-            </button>
-        </div>
+        <button id="guardarnom">
+            Entrar
+        </button>
     </div>
-
-     <div id="usuaris">
-
-        </div>
+</div>
 
 
+<div class="container">
 
-    <div class="container">
-
-        <h1>Firma digital RSA</h1>
+    <h1>Signatura digital RSA</h1>
 
 
-        <div class="contingu">
+    <div class="contingu">
 
-            <div class="misclaves">
+        <div class="misclaves">
 
-                <h2>Mis claves</h2>
+            <h2>Les meves claus</h2>
 
-                <label for="clauPublica">Clave pública propia:</label>
-                <textarea id="clauPublica" rows="6" cols="60"></textarea>
+            <label for="clauPublica">Clau pública pròpia:</label>
+            <textarea id="clauPublica" rows="6" cols="60" readonly></textarea>
 
-                <label for="clauPrivada">Clave privada propia:</label>
-                <textarea id="clauPrivada" rows="6" cols="60"></textarea>
+            <label for="clauPrivada">Clau privada pròpia:</label>
+            <textarea id="clauPrivada" rows="6" cols="60" readonly></textarea>
 
-                <button id="generar">Generar claves</button>
-
-            </div>
-
-            <div class="remota">
-
-                <h2>Clave pública remota</h2>
-
-                <textarea id="clauRemota" rows="6" cols="60"
-                    placeholder="Pega aquí la clave pública del otro navegador"></textarea>
-
-                <h2>Mensaje</h2>
-
-                <textarea id="sms" rows="6" cols="60" placeholder="Escribe tu mensaje aquí"></textarea><br>
-
-                <button id="firmar">Firmar mensaje</button>
-
-            </div>
+            <button id="generar">Generar claus</button>
 
         </div>
 
 
+        <div class="remota">
 
-        <div class="contingu">
+            <h2>Clau pública remota</h2>
 
-            <div class="cifrado">
+            <textarea id="clauRemota" rows="6" cols="60"
+                placeholder="Enganxa aquí la clau pública de l'altre navegador" readonly></textarea>
 
-                <h2>Mensaje firmado (JSON)</h2>
+            <h2>Missatge</h2>
 
-                <textarea id="msn_json" rows="6" cols="60" placeholder="Aquí aparecerá el JSON firmado"></textarea>
+            <textarea id="sms" rows="6" cols="60" placeholder="Escriu el teu missatge aquí"></textarea><br>
 
-                <button id="cifrar">Cifrar mensaje</button>
-
-                <h2>Mensaje cifrado</h2>
-
-                <textarea id="msn_cifrat" rows="6" cols="60" placeholder="Aquí aparecerá el mensaje cifrado"></textarea>
-
-                <button id="enviar">Enviar</button>
-
-            </div>
-
-
-
-            <div class="descifrado">
-
-                <h2>Mensaje recibido</h2>
-
-                <textarea id="msn_rebut" rows="6" cols="60"
-                    placeholder="Pega aquí el mensaje cifrado recibido"></textarea>
-
-                <button id="descifrar">Descifrar mensaje</button>
-
-                <h2>Mensaje descifrado (JSON)</h2>
-
-                <textarea id="smsDescifrado" rows="6" cols="60"
-                    placeholder="Aquí aparecerá el JSON descifrado"></textarea>
-
-                <button id="verificar">Verificar firma</button>
-
-            </div>
+            <button id="firmar">Signar missatge</button>
+            <button id="Cont_cifrar">Xifrar missatge</button>
 
         </div>
 
+        <div id="llistaUsuaris">
 
-
-        <p id="resultado"></p>
+        </div>
 
     </div>
 
+
+
+    <div class="contingu">
+
+        <div class="cifrado">
+
+            <h2>Missatge signat (JSON)</h2>
+
+            <textarea id="msn_json" rows="6" cols="60" placeholder="Aquí apareixerà el JSON signat"></textarea>
+
+            <button id="cifrar">Xifrar missatge</button>
+
+            <h2>Missatge xifrat</h2>
+
+            <textarea id="msn_cifrat" rows="6" cols="60" placeholder="Aquí apareixerà el missatge xifrat" readonly></textarea>
+
+            <button id="enviar">Enviar</button>
+
+        </div>
+
+
+
+        <div class="descifrado">
+
+            <h2>Missatge rebut</h2>
+
+            <textarea id="msn_rebut" rows="6" cols="60"
+                placeholder="Enganxa aquí el missatge xifrat rebut"></textarea>
+
+            <button id="descifrar">Desxifrar missatge</button>
+
+            <h2>Missatge desxifrat (JSON)</h2>
+
+            <textarea id="smsDescifrado" rows="6" cols="60"
+                placeholder="Aquí apareixerà el JSON desxifrat"></textarea>
+
+            <button id="verificar">Verificar signatura</button>
+
+        </div>
+
+        <div id="msn_rebuts">
+            <h3>Missatges rebuts</h3>
+        </div>
+
+    </div>
+
+
+
+    <p id="resultado"></p>
+
+</div>
 
     <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/aes.js"></script>
-    <script src="/socket.io/socket.io.js"></script>f
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
     <script src="funcions.js"></script>
